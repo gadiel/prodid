@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     ProdID: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [],
@@ -522,7 +522,40 @@ const deployedContracts = {
           type: "function",
         },
       ],
-      inheritedFunctions: {},
+      inheritedFunctions: {
+        approve:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        balanceOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        getApproved:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        isApprovedForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        name: "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        ownerOf:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        safeTransferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        setApprovalForAll:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        symbol:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        tokenURI:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        transferFrom:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        tokenByIndex:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        tokenOfOwnerByIndex:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        totalSupply:
+          "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
     },
   },
 } as const;

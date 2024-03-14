@@ -19,10 +19,6 @@ contract ProdID is
 
 	constructor() ERC721("ProdID", "PID") {}
 
-	function _baseURI() internal pure override returns (string memory) {
-		return "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data=";
-	}
-
 	function mintItem(address to, string memory uri) public returns (uint256) {
 		tokenIdCounter.increment();
 		uint256 tokenId = tokenIdCounter.current();

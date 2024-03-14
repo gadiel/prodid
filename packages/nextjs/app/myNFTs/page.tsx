@@ -25,15 +25,8 @@ const MyNFTs: NextPage = () => {
     cacheOnBlock: true,
   });
 
-  const generateNftMetadata = async (tokenId : bigint) => {
-    console.log("https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId);
-
-    return {
-      description: "ProID-"+tokenId,
-      external_url: "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId, // <-- this can link to a page for the specific file too
-      image: "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId,
-      name: tokenId,
-    }
+  const generateNftUrl = (tokenId : number) => {
+    return "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId;
   }
 
   const handleMintItem = async () => {
@@ -41,17 +34,17 @@ const MyNFTs: NextPage = () => {
     if (tokenIdCounter === undefined) return;
 
     const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData = generateNftMetadata(tokenIdCounter);
-    const notificationId = notification.loading("Uploading to IPFS");
+    const currentTokenUrl = generateNftUrl(tokenIdCounterNumber);
+    const notificationId = notification.loading("Minting Initiated");
     try {
-      const uploadedItem = await addToIPFS(currentTokenMetaData);
+      //const uploadedItem = await addToIPFS(currentTokenMetaData);
 
       // First remove previous loading notification and then show success notification
       notification.remove(notificationId);
       notification.success("Metadata uploaded to IPFS");
 
       await mintItem({
-        args: [connectedAddress, uploadedItem.path],
+        args: [connectedAddress, currentTokenUrl],
       });
     } catch (error) {
       notification.remove(notificationId);
@@ -64,7 +57,7 @@ const MyNFTs: NextPage = () => {
       <div className="flex items-center flex-col pt-10">
         <div className="px-5">
           <h1 className="text-center mb-8">
-            <span className="block text-4xl font-bold">My NFTs</span>
+            <span className="block text-4xl font-bold">My PID Barcodes</span>
           </h1>
         </div>
       </div>
@@ -73,7 +66,7 @@ const MyNFTs: NextPage = () => {
           <RainbowKitCustomConnectButton />
         ) : (
           <button className="btn btn-secondary" onClick={handleMintItem}>
-            Mint NFT
+            Mint PID Barcode
           </button>
         )}
       </div>

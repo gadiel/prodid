@@ -9,7 +9,9 @@ import { getMetadataFromIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
 import { NFTMetaData } from "~~/utils/simpleNFT/nftsMetadata";
 
 export interface Collectible extends Partial<NFTMetaData> {
-  id: number;
+  id: string;
+  nid: number;
+  barcode_url: string;
   uri: string;
   owner: string;
 }
@@ -52,7 +54,9 @@ export const MyHoldings = () => {
           const nftMetadata: NFTMetaData = await getMetadataFromIPFS(ipfsHash);
 
           collectibleUpdate.push({
-            id: parseInt(tokenId.toString()),
+            id: tokenId.toString().padStart(12, "0"),
+            nid: parseInt(tokenId.toString()),
+            barcode_url: "https://barcode.tec-it.com/barcode.ashx?code=Code128&data="+tokenId.toString(),
             uri: tokenURI,
             owner: connectedAddress,
             ...nftMetadata,
@@ -63,7 +67,7 @@ export const MyHoldings = () => {
           console.log(e);
         }
       }
-      collectibleUpdate.sort((a, b) => a.id - b.id);
+      collectibleUpdate.sort();
       setMyAllCollectibles(collectibleUpdate);
       setAllCollectiblesLoading(false);
     };
@@ -83,7 +87,7 @@ export const MyHoldings = () => {
     <>
       {myAllCollectibles.length === 0 ? (
         <div className="flex justify-center items-center mt-10">
-          <div className="text-2xl text-primary-content">No NFTs found</div>
+          <div className="text-2xl text-primary-content">No PID Barcodes found</div>
         </div>
       ) : (
         <div className="flex flex-wrap gap-4 my-8 px-5 justify-center">
