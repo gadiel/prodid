@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract YourCollectible is
+contract ProdID is
 	ERC721,
 	ERC721Enumerable,
 	ERC721URIStorage,
@@ -17,10 +17,10 @@ contract YourCollectible is
 
 	Counters.Counter public tokenIdCounter;
 
-	constructor() ERC721("YourCollectible", "YCB") {}
+	constructor() ERC721("ProdID", "PID") {}
 
 	function _baseURI() internal pure override returns (string memory) {
-		return "https://ipfs.io/ipfs/";
+		return "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data=";
 	}
 
 	function mintItem(address to, string memory uri) public returns (uint256) {

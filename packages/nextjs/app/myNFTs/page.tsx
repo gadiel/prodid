@@ -13,24 +13,35 @@ const MyNFTs: NextPage = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
 
   const { writeAsync: mintItem } = useScaffoldContractWrite({
-    contractName: "YourCollectible",
+    contractName: "ProdID",
     functionName: "mintItem",
     args: [connectedAddress, ""],
   });
 
   const { data: tokenIdCounter } = useScaffoldContractRead({
-    contractName: "YourCollectible",
+    contractName: "ProdID",
     functionName: "tokenIdCounter",
     watch: true,
     cacheOnBlock: true,
   });
+
+  const generateNftMetadata = async (tokenId : bigint) => {
+    console.log("https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId);
+
+    return {
+      description: "ProID-"+tokenId,
+      external_url: "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId, // <-- this can link to a page for the specific file too
+      image: "https://barcode.tec-it.com/barcode.ashx?code=MobileQRUrl&data="+tokenId,
+      name: tokenId,
+    }
+  }
 
   const handleMintItem = async () => {
     // circle back to the zero item if we've reached the end of the array
     if (tokenIdCounter === undefined) return;
 
     const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData = nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
+    const currentTokenMetaData = generateNftMetadata(tokenIdCounter);
     const notificationId = notification.loading("Uploading to IPFS");
     try {
       const uploadedItem = await addToIPFS(currentTokenMetaData);
